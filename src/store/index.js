@@ -110,7 +110,8 @@ export default new Vuex.Store({
 			}
 		},
 		async commentPost({ context, state },newComment) {
-			const response = await axios.put(`http://127.0.0.1:3000/posts/${id}/comments`,{
+			console.log(newComment);
+			const response = await axios.put(`http://127.0.0.1:3000/posts/${newComment.id}/comments`,{
 				id: newComment.id,
 				comment: newComment.comment,
 			},

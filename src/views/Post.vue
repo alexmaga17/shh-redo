@@ -236,7 +236,12 @@ export default {
 			});
 			console.log(response);
 			if(response.data.success == true){
-				alert('comentário feito com sucesso')
+				this.$swal.fire({
+					title: 'Sucesso!',
+					text: 'Comentário adicionado!',
+					icon: 'success',
+					confirmButtonText: 'OK'
+				})
 			}
 		},
 

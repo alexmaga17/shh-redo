@@ -10,6 +10,7 @@
 <script type="text/javascript">
 import NavBar from './components/NavBar.vue';
 import Footer from './components/Footer.vue';
+import VueSweetalert2 from 'vue-sweetalert2';
 //import Help from './components/Help.vue';
 
 export default {
@@ -17,6 +18,7 @@ export default {
 	components: {
 		NavBar,
 		Footer,
+		VueSweetalert2
 		//Help, // register component
 	},
 };
@@ -25,5 +27,6 @@ export default {
 body {
 	margin: 0;
 	padding: 0;
+	font-family: 'Gilroy', sans-serif;
 }
 </style>
