@@ -6,9 +6,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
-		posts:[],
-		users:[],
-		loggedUser: localStorage.loggedUser ? JSON.parse(localStorage.loggedUser): null,
+		posts: [],
+		users: [],
+		loggedUser: localStorage.loggedUser ? JSON.parse(localStorage.loggedUser) : null,
 		categories: [],
 		search: '',
 		filteredPosts: [],
@@ -21,19 +21,19 @@ export default new Vuex.Store({
 	},
 	mutations: {},
 	actions: {
-		async login({context,state}, user){
-			const response = await axios.post('http://127.0.0.1:3000/users/login',{
+		async login({ context, state }, user) {
+			const response = await axios.post('http://127.0.0.1:3000/users/login', {
 				email: user.email,
 				password: user.password
 			});
-			if(response.data.success == true){
-				  localStorage.setItem('token',response.data.accessToken);
-				  localStorage.setItem('loggedUser', JSON.stringify(response.data.user));
+			if (response.data.success == true) {
+				localStorage.setItem('token', response.data.accessToken);
+				localStorage.setItem('loggedUser', JSON.stringify(response.data.user));
 			}
 			return response;
 		},
-		async signup({context,state}, user){
-			const response = await axios.post('http://127.0.0.1:3000/users',{
+		async signup({ context, state }, user) {
+			const response = await axios.post('http://127.0.0.1:3000/users', {
 				username: user.username,
 				firstname: user.firstname,
 				lastname: user.lastname,
@@ -46,69 +46,85 @@ export default new Vuex.Store({
 				password: user.password,
 				confirmPassword: user.confirmPassword,
 			});
-			if(response.data.success == true){
+			if (response.data.success == true) {
 				state.users.push(response.data.user);
 			}
 			return response;
 		},
-		async newPost({context,state}, post){
-			const response = await axios.post('http://127.0.0.1:3000/posts',{
-				category:post.category,
+		async newPost({ context, state }, post) {
+			const response = await axios.post('http://127.0.0.1:3000/posts', {
+				category: post.category,
 				small_description: post.small_description,
 				big_description: post.big_description,
 				faq: post.faq,
 				post_photo: post.post_photo,
 			},
-			{
-				headers:{
-					'Content-Type': 'application/json',
-					Authorization: 'Bearer ' + localStorage.getItem('token'),
+				{
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: 'Bearer ' + localStorage.getItem('token'),
+					}
 				}
-			}
 			);
-			if(response.data.success == true){
+			if (response.data.success == true) {
 				state.posts.push(response.data.post);
 			}
 			return response;
 		},
-		async loadCategories({context,state}){
+		async loadCategories({ context, state }) {
 			const response = await axios.get('http://127.0.0.1:3000/categories');
 
-			if(response.data.success == true){
+			if (response.data.success == true) {
 				state.categories = response.data.categories;
 			}
 			return response;
 		},
-		async loadUsers({context,state}){
+		async loadUsers({ context, state }) {
 			const response = await axios.get('http://127.0.0.1:3000/users');
 			console.log(response);
-			if(response.data.success == true){
+			if (response.data.success == true) {
 				state.users = response.data.users;
 			}
 			return response;
 		},
-		async loadPosts({context,state}){
+		async loadPosts({ context, state }) {
 			const response = await axios.get('http://127.0.0.1:3000/posts');
 			console.log(response);
-			if(response.data.success == true){
+			if (response.data.success == true) {
 				state.posts = response.data.posts;
 			}
 			return response;
 		},
-		async loadPostsByCategory({context,state}, category){
+		async loadPostsByCategory({ context, state }, category) {
 			const response = await axios.get(`http://127.0.0.1:3000/posts/filter/${category}`);
 			console.log(response);
-			if(response.data.success == true){
+			if (response.data.success == true) {
 				return response;
 			}
 		},
-		async loadSinglePost({context,state}, id){
+		async loadSinglePost({ context, state }, id) {
 			const response = await axios.get(`http://127.0.0.1:3000/posts/${id}`);
 			console.log(response);
-			if(response.data.success == true){
+			if (response.data.success == true) {
 				return response;
 			}
-		}
+		},
+		async commentPost({ context, state },newComment) {
+			const response = await axios.put(`http://127.0.0.1:3000/posts/${id}/comments`,{
+				id: newComment.id,
+				comment: newComment.comment,
+			},
+				{
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: 'Bearer ' + localStorage.getItem('token'),
+					}
+				}
+			);
+			if (response.data.success == true) {
+				return response;
+			}
+		},
 	},
 
 	modules: {},

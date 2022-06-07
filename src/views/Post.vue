@@ -95,6 +95,10 @@
 				</div>
 				<div class="commentsContainer1">
 					<h4>Comentários</h4>
+					<div class="commentInput">
+						<input type="text" name="comment" id="comment" placeholder="Faça um comentário" v-model="comment">
+						<img src="../../public/assets/send.png" alt="" @click="makeComment">
+					</div>
 						<div v-if="post.comments.length > 0">
 							<div v-for="(comment, id) in post.comments" :key="id" class="cardComments">
 								<div class="commentsContainer2">
@@ -203,6 +207,7 @@ import { mapActions } from 'vuex';
 export default {
 	data() {
 		return {
+			comment:'',
 			isOpen: false,
 			post:{},
 			// postInfo: this.$store.state.posts[this.$route.params.id],
@@ -213,13 +218,25 @@ export default {
 		this.getPost();
 	},
 	methods: {
-		...mapActions(["loadSinglePost"]),
+		...mapActions(["loadSinglePost","commentPost"]),
 
 		async getPost(){
 			const response = await this.loadSinglePost(this.$route.params.id);
 			console.log(response);
 			if(response.data.success == true){
 				this.post = response.data.post;
+			}
+		},
+
+		async makeComment(){
+			console.log(this.comment);
+			const response = await this.commentPost({
+				id:this.$route.params.id,
+				comment: this.comment,
+			});
+			console.log(response);
+			if(response.data.success == true){
+				alert('comentário feito com sucesso')
 			}
 		},
 
@@ -230,6 +247,9 @@ export default {
 	created() {
 		// console.log(this.postInfo);
 	},
+	// updated () {
+	// 	this.getPost();
+	// },
 };
 </script>
 
@@ -427,6 +447,32 @@ h5 {
 	height: 500px;
 	object-fit:cover;
 }
+.commentInput{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding-bottom:32px;
+	padding-left:5px;
+}
+
+.commentInput img{
+	width:35px;
+	height:35px;
+	padding-left: 8px;
+}
+.commentInput input {
+	box-sizing: border-box;
+	max-width: 500px;
+	width: 100%;
+	height: 43px;
+	background-color: white;
+	border: 0;
+	color: black;
+	font-family: 'gilroy', sans-serif;
+	font-weight: 600;
+	outline: 3px solid black;
+	padding-left: 25px;
+}
 .cardComments {
 	padding-top: 0px;
 	padding-bottom: 10px;
@@ -465,7 +511,7 @@ h5 {
 .commentsContainer3 h6{
 	font-family:'Gilroy', sans-serif;
 	font-weight:540;
-	font-size: 90%;
+	font-size: 92.5%;
 	margin-top:-5px;
 	margin-left: 70px; 
 
