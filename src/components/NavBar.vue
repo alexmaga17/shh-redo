@@ -57,7 +57,7 @@
 				class="link"
 				to="EditProfile"
 				v-bind:style="{ display: showEdit }"
-				>Editar Perfil</router-link
+				>Perfil</router-link
 			>
 			<router-link class="link" to="signup" v-bind:style="{ display: showSignup }">Sign Up</router-link>
 			<router-link
@@ -149,24 +149,55 @@ export default {
 			});
 			console.log(response);
 			if(response.data.success == true){
+				this.$swal.fire({
+					title: 'Sucesso!',
+					text: 'Entrou na sua conta!',
+					icon: 'success',
+					confirmButtonText: 'OK',
+					confirmButtonColor: "#000000",
+				});
 				this.showEdit = 'inline',
 				this.showSignup = 'none',
 				this.showLogout = 'inline',
+				this.showLogin = 'none',
 				this.isDialogOpen = false
 
 				if(response.data.user.user_type == 'admin')
 					this.showAdmin = 'inline';
+			}else{
+				this.$swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Ocorreu algum erro ao iniciar sessão!',
+					confirmButtonText: 'OK',
+					confirmButtonColor: "#000000",
+				});
 			}
 		},
 		logout() {
-			this.showLogin = 'inline';
-			this.showLogout = 'none';
-			this.showSignup = 'inline';
-			this.showEdit = 'none';
-			this.showAdmin = 'none';
-			localStorage.removeItem('token');
-			localStorage.removeItem('loggedUser');
-			this.$router.push('/');
+			this.$swal.fire({
+				title: 'Pretende sair da sua conta?',
+				icon:'warning',
+				showDenyButton: true,
+				confirmButtonText: 'Sim',
+				denyButtonText: `Não, vou ficar!`,
+				color:"#000000",
+				confirmButtonColor: "#000000",
+				denyButtonColor: "#bababa",
+				}).then((result) => {
+				if (result.isConfirmed) {
+					this.showLogin = 'inline';
+					this.showLogout = 'none';
+					this.showSignup = 'inline';
+					this.showEdit = 'none';
+					this.showAdmin = 'none';
+					localStorage.removeItem('token');
+					localStorage.removeItem('loggedUser');
+					this.$router.push('/');
+				} else if (result.isDenied) {
+					console.log('nao saiu');
+				}
+			});
 		},
 
 
@@ -187,7 +218,7 @@ export default {
 		},
 	},
 	computed: {
-		...mapGetters(['isUser','getLoggedUser', 'isAdmin']),
+		...mapGetters(['getLoggedUser']),
 		search: {
 			get() {
 				return this.$store.state.search;
@@ -196,6 +227,24 @@ export default {
 				this.$store.commit('updateSearch', value);
 			},
 		},
+	},
+	mounted () {
+		if(this.getLoggedUser != null){
+				this.showEdit = 'inline',
+				this.showSignup = 'none',
+				this.showLogout = 'inline',
+				this.showLogin = 'none',
+				this.isDialogOpen = false
+			
+			if(this.getLoggedUser.user_type == 'admin')
+				this.showAdmin = 'inline';
+		}else{
+			this.showLogin = 'inline';
+			this.showLogout = 'none';
+			this.showSignup = 'inline';
+			this.showEdit = 'none';
+			this.showAdmin = 'none';
+}
 	},
 };
 </script>

@@ -53,11 +53,6 @@
 						</select>
 					</div>
 					<div class="inputContainer">
-						<label for="nif">NIF</label>
-						<br />
-						<input type="text" id="nif" v-model="nif" />
-					</div>
-					<div class="inputContainer">
 						<label for="birthDate">Data de Nascimento</label>
 						<br />
 						<input type="date" id="birthDate" v-model="birthdate" />
@@ -126,7 +121,6 @@ export default {
 				course_year:'',
 				birthdate: '',
 				email: '',
-				nif: '',
 				photo:'',
 				password: '',
 				confirmPassword: '',
@@ -143,6 +137,9 @@ export default {
 		...mapActions(['signup']),
 
 		async addUser() {
+			if (this.photo == '')	
+				this.photo = 'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
+				
 			const response = await this.signup({
 				username: this.username,
 				firstname: this.firstname,

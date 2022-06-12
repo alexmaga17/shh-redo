@@ -108,7 +108,13 @@ export default {
 			}
 			console.log(response);
 			if(response.data.success == true){
-				alert('Post criado com sucesso!')
+				this.$swal.fire({
+					title: 'Sucesso!',
+					text: 'Anúncio criado!',
+					icon: 'success',
+					confirmButtonText: 'OK',
+					confirmButtonColor: "#000000",
+				});
 				this.$router.push('/explore');
 			}
 		},
@@ -248,6 +254,11 @@ input[type='radio']:checked + label[for=radioModelo] {
 	font-weight: 600;
 	outline: none;
 	padding-left: 20px;
+}
+
+.swal-button{
+	margin:0;
+	border:none;
 }
 
 </style>

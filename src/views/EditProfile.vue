@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="container">
+		<div  v-if="getLoggedUser != null" class="container">
 			<div class="topContainer">
 				<img
 					:src="getLoggedUser.photo"
@@ -65,6 +65,9 @@
 				</div>
 			</div>
 		</div>
+		<div v-else>
+			<h1>Não estás logado!</h1>
+		</div>
 	</div>
 </template>
 
@@ -80,6 +83,10 @@ export default {
 	},
 	computed: {
 		...mapGetters(['getLoggedUser']),
+		getLoggedUser(){
+			let user = this.$store.getters.getLoggedUser
+			return user;
+		}
 	},
 	methods: {
 		checkPass() {

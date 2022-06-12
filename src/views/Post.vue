@@ -239,8 +239,9 @@ export default {
 				this.$swal.fire({
 					title: 'Sucesso!',
 					text: 'Comentário adicionado!',
-					icon: 'success',
-					confirmButtonText: 'OK'
+					confirmButtonText: 'OK',
+					confirmButtonColor: "#000000",
+					color:"#000000"
 				})
 			}
 		},
@@ -434,6 +435,10 @@ h5 {
 	display: flex;
 }
 
+.btnClockContainer span {
+	padding-top:5px;
+}
+
 #clock {
 	width: 40px;
 	padding-left: 20px;
@@ -521,4 +526,5 @@ h5 {
 	margin-left: 70px; 
 
 }
+
 </style>

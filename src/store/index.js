@@ -8,7 +8,7 @@ export default new Vuex.Store({
 	state: {
 		posts: [],
 		users: [],
-		loggedUser: localStorage.loggedUser ? JSON.parse(localStorage.loggedUser) : null,
+		loggedUser: null,
 		categories: [],
 		search: '',
 		filteredPosts: [],
@@ -19,14 +19,19 @@ export default new Vuex.Store({
 		getUsers: (state) => state.users,
 		getPosts: (state) => state.posts
 	},
-	mutations: {},
+	mutations: {
+		loginSuccess(state, payload){
+			state.loggedUser = payload;
+		}
+	},
 	actions: {
-		async login({ context, state }, user) {
+		async login({ context, commit, state }, user) {
 			const response = await axios.post('http://127.0.0.1:3000/users/login', {
 				email: user.email,
 				password: user.password
 			});
 			if (response.data.success == true) {
+				commit('loginSuccess',response.data.user)
 				localStorage.setItem('token', response.data.accessToken);
 				localStorage.setItem('loggedUser', JSON.stringify(response.data.user));
 			}
