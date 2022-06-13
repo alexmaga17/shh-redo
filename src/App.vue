@@ -11,6 +11,7 @@
 import NavBar from './components/NavBar.vue';
 import Footer from './components/Footer.vue';
 import VueSweetalert2 from 'vue-sweetalert2';
+import StarRating from 'vue-star-rating';
 //import Help from './components/Help.vue';
 
 export default {
@@ -18,7 +19,8 @@ export default {
 	components: {
 		NavBar,
 		Footer,
-		VueSweetalert2
+		VueSweetalert2,
+		StarRating
 		//Help, // register component
 	},
 };
