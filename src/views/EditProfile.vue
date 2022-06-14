@@ -39,10 +39,6 @@
 						<span>Email</span>
 						<span class="value">{{ getLoggedUser.email }}</span>
 					</div>
-					<div class="infoContainer nifContainer">
-						<span>NIF</span>
-						<span class="value">{{ getLoggedUser.nif }}</span>
-					</div>
 				</div>
 			</div>
 
@@ -82,7 +78,7 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters(['getLoggedUser']),
+		//...mapGetters(['getLoggedUser']),
 		getLoggedUser(){
 			let user = this.$store.getters.getLoggedUser
 			return user;
@@ -200,8 +196,9 @@ img{
 
 .editContainer {
 	margin-top: 50px;
-	margin-bottom: 50px;
+	margin-bottom: 0;
 	padding-left: 50px;
+	padding-bottom: 0;
 	display: grid;
 	width: 50%;
 	grid-template-columns: 1.9fr 1.5fr 2fr 2fr;
