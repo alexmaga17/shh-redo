@@ -53,7 +53,15 @@
 				<h4>Avaliação</h4>
 				<div class="ratingContainer2">
 					<div class="starsContainer">
-						<img
+						<star-rating
+                        class=""
+                        :animate="true"
+                        :active-on-click="true"
+                        :star-size="18"
+                        active-color="#000000"
+						v-model="rating"
+                     	></star-rating>
+						<!-- <img
 							src="../../public/assets/noun-star-1187057.svg"
 							alt=""
 							class="star 1"
@@ -82,7 +90,7 @@
 							alt=""
 							class="star 5"
 							:class="{ faded: post.overallRating < 5 }"
-						/>
+						/> -->
 					</div>
 					<span
 						class="overallRating"
@@ -90,7 +98,7 @@
 						>{{ post.overallRating }}</span
 					>
 					<span class="numRating"
-						>{{ post.gamification.likes.length }} Avaliações</span
+						>{{ post.gamification.reviews.length }} Avaliações</span
 					>
 				</div>
 				<div class="commentsContainer1">
@@ -107,8 +115,6 @@
 										<h4>{{ comment.user.firstname }} {{ comment.user.lastname }} </h4>
 										<h5>@{{ comment.user.username }}</h5>
 									</div>	
-									<!-- <img class="removeBtn" src="../../public/assets/delete.png" 
-									alt=""> -->
 								</div>	
 								<div class="commentsContainer3">
 									<h6>{{ comment.comment }}</h6>
@@ -203,11 +209,16 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters} from 'vuex';
+import StarRating from "vue-star-rating";
 export default {
+	components: {
+    	StarRating,
+  	},
 	data() {
 		return {
 			comment:'',
+			rating:'',
 			isOpen: false,
 			post:{},
 			// postInfo: this.$store.state.posts[this.$route.params.id],
@@ -216,6 +227,14 @@ export default {
 	},
 	mounted () {
 		this.getPost();
+		console.log(this.post);
+	},
+	computed: {
+		...mapGetters(['getLoggedUser']),
+		getLoggedUser(){
+			let user = this.$store.getters.getLoggedUser
+			return user;
+		}
 	},
 	methods: {
 		...mapActions(["loadSinglePost","commentPost"]),
@@ -299,6 +318,10 @@ aside div:nth-child(5) {
 	display: flex;
 }
 
+aside img{
+	border-radius:50%;
+}
+
 .ratingContainer {
 	display: flex;
 	align-items: center;
@@ -311,7 +334,8 @@ aside div:nth-child(5) {
 }
 
 .numRating {
-	font-size: 13px;
+	padding-top:3px;
+	font-size: 14px;
 	font-weight: 700;
 	color: #b4b4b4;
 	padding-left: 10px;
@@ -466,8 +490,8 @@ h5 {
 }
 
 .commentInput img{
-	width:35px;
-	height:35px;
+	width:30px;
+	height:30px;
 	padding-left: 8px;
 }
 .commentInput input {
@@ -487,6 +511,16 @@ h5 {
 	padding-top: 0px;
 	padding-bottom: 10px;
 	padding-left:10px;
+}
+.deleteContainer {
+	display: flex;
+	flex-direction: row;
+	padding-left: 250px;
+}
+#deletebtn{
+	border-radius: 0;
+	width:27px;
+	height:27px;
 }
 
 .commentsContainer2{

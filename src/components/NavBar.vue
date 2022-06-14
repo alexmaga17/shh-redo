@@ -106,6 +106,7 @@
 					</form>
 					<div class="divider"></div>
 					<router-link to="/signup"
+						v-on:click.native="removeDialog"
 						><h2>Ainda não tens conta?</h2>
 						<h3>
 							Prometemos que não te vamos julgar por isso :)
@@ -141,6 +142,9 @@ export default {
 
 		showDialog() {
 			this.isDialogOpen = true;
+		},
+		removeDialog(){
+			this.isDialogOpen = false;
 		},
 		async loginUser() {
 			const response = await this.login({

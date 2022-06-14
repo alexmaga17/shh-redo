@@ -8,7 +8,7 @@ export default new Vuex.Store({
 	state: {
 		posts: [],
 		users: [],
-		loggedUser: null,
+		loggedUser: localStorage.loggedUser ? JSON.parse(localStorage.loggedUser): null,
 		categories: [],
 		search: '',
 		filteredPosts: [],
