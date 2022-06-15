@@ -22,7 +22,7 @@
                         <td>{{ user.number }}</td>
                         <td>{{ user.birthdate }}</td>
                         <td>{{ user.password }}</td>
-                        <td><router-link class="submitContainer" v-on:click.native="SET_REMOVE_USER(user.email)" to="#" ><img 
+                        <td><router-link class="submitContainer" v-on:click.native="removeUser(user._id)" to="#" ><img 
                         src="../../public/assets/delete.png" 
                         alt=""
                         :style="{ 'width':'30px','heigth':'30px', 'align-items':'center'}"
@@ -48,11 +48,28 @@ import { mapGetters, mapMutations, mapActions } from 'vuex';
         mounted () {
           this.loadUsers();
         },
+        updated () {
+            this.loadUsers();
+        },
         computed: {
             ...mapGetters(['getUsers', 'getLoggedUser']),
         },
         methods: {
-            ...mapActions(['loadUsers'])
+            ...mapActions(['loadUsers','deleteUser']),
+
+            async removeUser(id) {
+                const response = await this.deleteUser(id);
+                console.log(response);
+                if (response.data.success == true) {
+                    this.$swal.fire({
+                        title: 'Sucesso!',
+                        text: 'Utilizador Removido da aplicação!',
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: "#000000",
+                        color: "#000000"
+                    })
+                }
+            },
         },
     }
 </script>

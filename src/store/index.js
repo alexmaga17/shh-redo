@@ -92,6 +92,22 @@ export default new Vuex.Store({
 			}
 			return response;
 		},
+		async deleteUser({ context, state },id) {
+			const response = await axios.delete(`http://127.0.0.1:3000/users/${id}`,
+				{
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: 'Bearer ' + localStorage.getItem('token'),
+					}
+				}
+			);
+
+			console.log(response);
+			if (response.data.success == true) {
+				console.log(response);
+			}
+			return response;
+		},
 		async loadPosts({ context, state }) {
 			const response = await axios.get('http://127.0.0.1:3000/posts');
 			console.log(response);
