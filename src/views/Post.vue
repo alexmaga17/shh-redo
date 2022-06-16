@@ -61,36 +61,6 @@
                         active-color="#000000"
 						v-model="rating"
                      	></star-rating>
-						<!-- <img
-							src="../../public/assets/noun-star-1187057.svg"
-							alt=""
-							class="star 1"
-							:class="{ faded: post.overallRating < 1 }"
-						/>
-						<img
-							src="../../public/assets/noun-star-1187057.svg"
-							alt=""
-							class="star 2"
-							:class="{ faded: post.overallRating < 2 }"
-						/>
-						<img
-							src="../../public/assets/noun-star-1187057.svg"
-							alt=""
-							class="star 3"
-							:class="{ faded: post.overallRating < 3 }"
-						/>
-						<img
-							src="../../public/assets/noun-star-1187057.svg"
-							alt=""
-							class="star 4"
-							:class="{ faded: post.overallRating < 4 }"
-						/>
-						<img
-							src="../../public/assets/noun-star-1187057.svg"
-							alt=""
-							class="star 5"
-							:class="{ faded: post.overallRating < 5 }"
-						/> -->
 					</div>
 					<span
 						class="overallRating"
@@ -248,6 +218,16 @@ export default {
 		},
 
 		async makeComment(){
+			if (this.getLoggedUser  == null){
+				this.$swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Precisas de te autenticar para realizar comentários!',
+					confirmButtonText: 'OK',
+					confirmButtonColor: "#000000",
+					color:"#000000"
+					})
+			}
 			console.log(this.comment);
 			const response = await this.commentPost({
 				id:this.$route.params.id,
