@@ -96,6 +96,16 @@ export default {
 		...mapActions(['newPost']),
 
 		async addPost() {
+			if (!localStorage.token){
+				this.$swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Precisas de te autenticar para criar anúncios!',
+					confirmButtonText: 'OK',
+					confirmButtonColor: "#000000",
+					color:"#000000"
+				})
+			}
 			const response = await this.newPost({
 				category:this.category,
 				small_description: this.small_description,
@@ -103,9 +113,6 @@ export default {
 				faq: this.faq,
 				post_photo: this.post_photo,
 			});
-			if(!localStorage.token){
-				alert('precisa de estar logado para efetuar esta operação')
-			}
 			console.log(response);
 			if(response.data.success == true){
 				this.$swal.fire({

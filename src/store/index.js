@@ -12,6 +12,7 @@ export default new Vuex.Store({
 		categories: [],
 		search: '',
 		filteredPosts: [],
+		selectedChat:{},
 	},
 	getters: {
 		getLoggedUser: (state) => state.loggedUser,
@@ -73,8 +74,9 @@ export default new Vuex.Store({
 			);
 			if (response.data.success == true) {
 				state.posts.push(response.data.post);
+				return response;
 			}
-			return response;
+			
 		},
 		async loadCategories({ context, state }) {
 			const response = await axios.get('http://127.0.0.1:3000/categories');
@@ -135,6 +137,23 @@ export default new Vuex.Store({
 			const response = await axios.put(`http://127.0.0.1:3000/posts/${newComment.id}/comments`,{
 				id: newComment.id,
 				comment: newComment.comment,
+			},
+				{
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: 'Bearer ' + localStorage.getItem('token'),
+					}
+				}
+			);
+			if (response.data.success == true) {
+				return response;
+			}
+		},
+		async sendMessage({ context, state },message) {
+			console.log(message);
+			const response = await axios.put(`http://127.0.0.1:3000/users/${message.id}/messages`,{
+				id: message.id,
+				message: message.message,
 			},
 				{
 					headers: {

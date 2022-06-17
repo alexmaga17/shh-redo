@@ -30,7 +30,7 @@
 					<div class="inputContainer">
 						<label for="number">Número de aluno</label>
 						<br />
-						<input type="text" id="number" v-model="number" />
+						<input type="number" id="number" v-model="number" />
 					</div>
 					<div class="inputContainer">
 						<label for="course">Curso que frequenta</label>
@@ -139,24 +139,53 @@ export default {
 		async addUser() {
 			if (this.photo == '')	
 				this.photo = 'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
+
+			if (this.password != this.confirmPassword){
+				this.$swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'As passwords indicadas não coincidem!',
+					confirmButtonText: 'OK',
+					confirmButtonColor: "#000000",
+					color:"#000000"
+				})
+			}else  if(this.number.length != 8){
+				this.$swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'O número de aluno não cumpre os requisitos!',
+					confirmButtonText: 'OK',
+					confirmButtonColor: "#000000",
+					color:"#000000"
+				})
+			}else if(this.password.length < 8 || this.password.length > 16 ){
+				this.$swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'A password deve conter entre 8 a 16 caracteres!',
+					confirmButtonText: 'OK',
+					confirmButtonColor: "#000000",
+					color:"#000000"
+				})
+			}else{
+				const response = await this.signup({
+					username: this.username,
+					firstname: this.firstname,
+					lastname: this.lastname,
+					number: this.number,
+					course: this.course,
+					course_year: this.course_year,
+					birthdate: this.birthdate,
+					email: this.email,
+					photo: this.photo,
+					password: this.password,
+					confirmPassword: this.confirmPassword,
+				});
 				
-			const response = await this.signup({
-				username: this.username,
-				firstname: this.firstname,
-				lastname: this.lastname,
-				number: this.number,
-				course: this.course,
-				course_year: this.course_year,
-				birthdate: this.birthdate,
-				email: this.email,
-				photo: this.photo,
-				password: this.password,
-				confirmPassword: this.confirmPassword,
-			});
-			console.log(response);
-			if(response.data.success == true){
-				this.$router.push('/');
-			}
+				if(response.data.success == true){
+					this.$router.push('/');
+				}
+			}	
 		},
 
 	},
