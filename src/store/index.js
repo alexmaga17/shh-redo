@@ -94,6 +94,21 @@ export default new Vuex.Store({
 			}
 			return response;
 		},
+		async loadSingleUser({ context, state }, id) {
+			const response = await axios.get(`http://127.0.0.1:3000/users/${id}`,
+				{
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: 'Bearer ' + localStorage.getItem('token'),
+					}
+				}
+			);
+			//console.log(response);
+			if (response.data.success == true) {
+				return response;
+			}
+		},
+
 		async deleteUser({ context, state },id) {
 			const response = await axios.delete(`http://127.0.0.1:3000/users/${id}`,
 				{
@@ -150,7 +165,7 @@ export default new Vuex.Store({
 			}
 		},
 		async sendMessage({ context, state },message) {
-			console.log(message);
+			//console.log(message);
 			const response = await axios.put(`http://127.0.0.1:3000/users/${message.id}/messages`,{
 				id: message.id,
 				message: message.message,

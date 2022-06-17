@@ -21,7 +21,7 @@
         </div>
         <div class="inputContainer">
             <input type="text" name="message" id="message" placeholder="Escreve uma mensagem..." v-model="messageContent">
-            <img src="../../public/assets/send.png" alt="" @click="newMessage(selectedChat.user._id)">
+            <button @click="newMessage(selectedChat.user._id)">Enviar</button>
         </div>
     </div>
 </template>
@@ -33,6 +33,7 @@ export default {
     data() {
         return {
             messageContent: '',
+            chat:{},
         }
     },
     mounted () {
@@ -41,7 +42,7 @@ export default {
     computed: {
         ...mapGetters(["getLoggedUser"]),
         selectedChat() {
-            return this.$store.state.selectedChat
+            return this.$store.state.selectedChat;
         } 
                
     },
@@ -53,12 +54,13 @@ export default {
                 id:id,
                 message:this.messageContent,
             });
+            this.$store.state.selectedChat.messages.push({
+                type:'sent',
+                message:this.messageContent,
+                time: new Date()
+            })
             console.log(response);
         }
-    },
-    updated () {
-        console.log(this.selectedChat);
-        getLoggedUser();
     },
 }
 </script>
@@ -92,11 +94,28 @@ export default {
         margin-top: 17px;
 
     }
-
-    .inputContainer img{
-        width:40px;
-        height:40px;
-        padding-left: 8px;
+    .inputContainer button {
+	width: 10%;
+	background-color: white;
+    width: 120px;
+    height: 54px;
+	outline: 4px solid black;
+	outline-offset: -2px;
+	color: black;
+	font-family: 'gilroy', sans-serif;
+	font-weight: 700;
+	box-sizing: border-box;
+	padding-top: 3px;
+	margin-left: 12px;
+	margin-top:0px;
+	margin-bottom: 1px;
+	cursor: pointer;
+	transition: all 0.08s ease-in-out;
+	font-size: 20px;
+	text-decoration: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
     }
 
     .inputContainer input {

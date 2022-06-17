@@ -159,7 +159,7 @@
 				<router-link
 					:to="{
 						name: 'NewMessage',
-						params: { id: post._id },
+						params: { id: post.user._id },
 					}"
 					id="btnMessage"
 					>Contactar {{ post.user.firstname }}</router-link
@@ -211,7 +211,7 @@ export default {
 
 		async getPost(){
 			const response = await this.loadSinglePost(this.$route.params.id);
-			console.log(response);
+			//console.log(response);
 			if(response.data.success == true){
 				this.post = response.data.post;
 			}
@@ -248,9 +248,6 @@ export default {
 		toggleAccordion() {
 			this.isOpen = !this.isOpen;
 		},
-	},
-	created() {
-		// console.log(this.postInfo);
 	},
 	// updated () {
 	// 	this.getPost();

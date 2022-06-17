@@ -6,6 +6,8 @@
                 <div class="contactsContainer" v-for="(chat,index) in getLoggedUser.chats" v-bind:key="index">
                     <div class="contactContainer" @click="selectChat(chat)">
                         <div class="contactTop">
+                            <div class="fotoContainer">	<img :src="chat.user.photo" id="profile" alt=""/>
+                            </div>
                             <div class="nomeContainer"><span>{{chat.user.firstname}}</span></div>
                             <div class="categoriaContainer"><span>{{chat.user.course }}</span></div>
                             </div>
@@ -113,10 +115,16 @@ aside{
 }
 
 .categoriaContainer span{
+    padding-bottom: 0;
     font-size:15px;
     font-weight: 800;
 }
 
+.fotoContainer img{
+    width:55px;
+    height:55px;
+    border-radius: 50%;
+}
 .contactBottom{
     display:flex;
     align-items:flex-start

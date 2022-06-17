@@ -8,31 +8,67 @@
 					id="paperPlane"
 				/>
 				<div>
-					<h1>Escreve uma mensagem para {{ postInfo.userName }}</h1>
+					<h1>Escreve uma mensagem para {{ user.firstname }}</h1>
 					<h2>
 						Lembra-te que deves ser sempre respeitoso com qualquer
 						um dos ajudantes.
 					</h2>
 				</div>
 			</div>
-			<textarea name="message" id="messageTA"></textarea>
+			<textarea name="message" id="messageTA" v-model="messageContent"></textarea>
 			<div class="btnContainer">
-				<router-link to="#" id="btnMessage"
-					>Enviar Mensagem</router-link
-				>
-				
+				<router-link v-on:click.native="newMessage(user._id)" to="#" id="btnMessage">Enviar Mensagem</router-link>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
 	name: 'NewMessage',
 	data() {
 		return {
-			postInfo: this.$store.state.posts[this.$route.params.id],
+			user:{},
+			messageContent:'',
 		};
+	},
+	mounted () {
+		this.getUser();
+		console.log(this.user);
+		//console.log(this.getLoggedUser);
+	},
+	computed: {
+		...mapGetters(["getLoggedUser"]),
+	},
+	methods: {
+		...mapActions(["loadSingleUser","sendMessage"]),
+
+		async getUser(){
+			const response = await this.loadSingleUser(this.$route.params.id);
+			//console.log(response);
+			if(response.data.success == true){
+				this.user = response.data.user;
+			}
+		},
+        async newMessage(id){
+			if(this.getLoggedUser._id === id){
+				this.$swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Não podes enviar mensagens a ti próprio! :)',
+					confirmButtonText: 'OK',
+					confirmButtonColor: "#000000",
+					color:"#000000"
+				})
+			}else{
+				const response = await this.sendMessage({
+					id:id,
+					message:this.messageContent,
+				});
+				console.log(response);
+			}	
+        } 
 	},
 };
 </script>
