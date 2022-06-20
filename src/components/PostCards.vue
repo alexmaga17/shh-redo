@@ -14,7 +14,6 @@
 				<div class="topContainer">
 					<div>
 						<h1>{{ post.user.firstname }}</h1>
-						<h2>#1</h2>
 					</div>
 					<div class="categoryNameContainer">
 						<span v-bind:style="{ color: post.category.color_category }">{{

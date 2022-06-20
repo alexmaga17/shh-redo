@@ -22,13 +22,18 @@ const routes = [
 		path: '/explore',
 		name: 'explore',
 		component: Explore,
-		children: [
-			{
-				path: ':categoryName',
-				name: 'exploreCategory',
-				component: ExploreCategory,
-			},
-		],
+		// children: [
+		// 	{
+		// 		path: ':categoryName',
+		// 		name: 'exploreCategory',
+		// 		component: ExploreCategory,
+		// 	},
+		// ],
+	},
+	{
+		path: '/posts/:categoryName',
+		name: 'exploreCategory',
+		component: ExploreCategory,
 	},
 	{
 		path: '/post/:id',
