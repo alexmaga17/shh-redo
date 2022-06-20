@@ -27,7 +27,7 @@ export default new Vuex.Store({
 	},
 	actions: {
 		async login({ context, commit, state }, user) {
-			const response = await axios.post('http://127.0.0.1:3000/users/login', {
+			const response = await axios.post('https://shhapi.herokuapp.com/users/login', {
 				email: user.email,
 				password: user.password
 			});
@@ -39,7 +39,7 @@ export default new Vuex.Store({
 			return response;
 		},
 		async signup({ context, state }, user) {
-			const response = await axios.post('http://127.0.0.1:3000/users', {
+			const response = await axios.post('https://shhapi.herokuapp.com/users', {
 				username: user.username,
 				firstname: user.firstname,
 				lastname: user.lastname,
@@ -58,7 +58,7 @@ export default new Vuex.Store({
 			return response;
 		},
 		async newPost({ context, state }, post) {
-			const response = await axios.post('http://127.0.0.1:3000/posts', {
+			const response = await axios.post('https://shhapi.herokuapp.com/posts', {
 				category: post.category,
 				small_description: post.small_description,
 				big_description: post.big_description,
@@ -79,7 +79,7 @@ export default new Vuex.Store({
 			
 		},
 		async loadCategories({ context, state }) {
-			const response = await axios.get('http://127.0.0.1:3000/categories');
+			const response = await axios.get('https://shhapi.herokuapp.com/categories');
 
 			if (response.data.success == true) {
 				state.categories = response.data.categories;
@@ -87,7 +87,7 @@ export default new Vuex.Store({
 			return response;
 		},
 		async loadUsers({ context, state }) {
-			const response = await axios.get('http://127.0.0.1:3000/users');
+			const response = await axios.get('https://shhapi.herokuapp.com/users');
 			console.log(response);
 			if (response.data.success == true) {
 				state.users = response.data.users;
@@ -95,7 +95,7 @@ export default new Vuex.Store({
 			return response;
 		},
 		async loadSingleUser({ context, state }, id) {
-			const response = await axios.get(`http://127.0.0.1:3000/users/${id}`,
+			const response = await axios.get(`https://shhapi.herokuapp.com/users/${id}`,
 				{
 					headers: {
 						'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ export default new Vuex.Store({
 		},
 
 		async deleteUser({ context, state },id) {
-			const response = await axios.delete(`http://127.0.0.1:3000/users/${id}`,
+			const response = await axios.delete(`https://shhapi.herokuapp.com/users/${id}`,
 				{
 					headers: {
 						'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ export default new Vuex.Store({
 			return response;
 		},
 		async loadPosts({ context, state }) {
-			const response = await axios.get('http://127.0.0.1:3000/posts');
+			const response = await axios.get('https://shhapi.herokuapp.com/posts');
 			console.log(response);
 			if (response.data.success == true) {
 				state.posts = response.data.posts;
@@ -134,14 +134,14 @@ export default new Vuex.Store({
 			return response;
 		},
 		async loadPostsByCategory({ context, state }, category) {
-			const response = await axios.get(`http://127.0.0.1:3000/posts/filter/${category}`);
+			const response = await axios.get(`https://shhapi.herokuapp.com/posts/filter/${category}`);
 			console.log(response);
 			if (response.data.success == true) {
 				return response;
 			}
 		},
 		async loadSinglePost({ context, state }, id) {
-			const response = await axios.get(`http://127.0.0.1:3000/posts/${id}`);
+			const response = await axios.get(`https://shhapi.herokuapp.com/posts/${id}`);
 			console.log(response);
 			if (response.data.success == true) {
 				return response;
@@ -149,7 +149,7 @@ export default new Vuex.Store({
 		},
 		async commentPost({ context, state },newComment) {
 			console.log(newComment);
-			const response = await axios.put(`http://127.0.0.1:3000/posts/${newComment.id}/comments`,{
+			const response = await axios.put(`https://shhapi.herokuapp.com/posts/${newComment.id}/comments`,{
 				id: newComment.id,
 				comment: newComment.comment,
 			},
@@ -166,7 +166,7 @@ export default new Vuex.Store({
 		},
 		async sendMessage({ context, state },message) {
 			//console.log(message);
-			const response = await axios.put(`http://127.0.0.1:3000/users/${message.id}/messages`,{
+			const response = await axios.put(`https://shhapi.herokuapp.com/users/${message.id}/messages`,{
 				id: message.id,
 				message: message.message,
 			},
