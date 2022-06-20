@@ -1,8 +1,6 @@
 module.exports = {
-    lintOnSave: false
-},
-
-module.exports = {
+    lintOnSave: false,
     publicPath: '/shh-redo/'
 }
+
 
