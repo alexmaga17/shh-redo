@@ -18,7 +18,8 @@ export default new Vuex.Store({
 		getLoggedUser: (state) => state.loggedUser,
 		getCategories: (state) => state.categories,
 		getUsers: (state) => state.users,
-		getPosts: (state) => state.posts
+		getPosts: (state) => state.posts,
+		getPostsFiltered : (state) => state.filteredPosts,
 	},
 	mutations: {
 		loginSuccess(state, payload){
@@ -137,6 +138,7 @@ export default new Vuex.Store({
 			const response = await axios.get(`https://shhapi.herokuapp.com/posts/filter/${category}`);
 			console.log(response);
 			if (response.data.success == true) {
+				state.filteredPosts = response.data.posts;
 				return response;
 			}
 		},

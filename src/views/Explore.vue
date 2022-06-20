@@ -103,8 +103,8 @@ export default {
 	},
 	data() {
 		return {
-			posts: this.$store.state.posts,
-			arrayCategories: this.$store.state.arrayCategories,
+			// posts: this.$store.state.posts,
+			// arrayCategories: this.$store.state.arrayCategories,
 			banner: false,
 			isOpen: false
 		};
