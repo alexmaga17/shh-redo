@@ -50,8 +50,7 @@
 			</div>
 			<div class="postsContainer">
 				<div class="postsLeft">
-					<div class="postContainer"><img src="../../public/assets/posts/post1.png" alt="" class="post">
-					<div class="infoContainer"><span>+ info</span></div></div>
+					<div class="postContainer"><img src="../../public/assets/posts/post1.png" alt="" class="post"></div>
 					<div class="postContainer"><img src="../../public/assets/posts/post2.png" alt="" class="post"></div>
 					<div class="postContainer"><img src="../../public/assets/posts/post3.png" alt="" class="post"></div>
 				</div>
@@ -134,6 +133,9 @@ export default {
 </script>
 
 <style scoped>
+body{
+	overflow-x: hidden;
+}
 .container1 {
 	margin-top: 71px;
 	height: 91vh;

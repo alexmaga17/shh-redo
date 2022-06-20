@@ -1,93 +1,10 @@
 <template>
-  <!-- <div class="bannerContainer">
-    <span>{{ category[categoryID.id].name }}</span>
-  </div> -->
-	<div class="postsContainer">
-		<CategoriesBar />
-		<div
-			class="cardContainer"
-			v-for="(post, _id) in postsFiltered"
-			v-bind:key="_id"
-			v-bind:style="{ 'box-shadow': cardShadow + post.category }"
-			v-on:click="goToPost(post.postID)"
-		>
-			<div class="photoContainer">
-				<img :src="post.post_photo" alt="" />
-			</div>
-			<div class="infoContainer">
-				<div class="topContainer">
-					<div>
-						<h1>{{ post.username }}</h1>
-						<h2>#1</h2>
-					</div>
-					<div class="categoryNameContainer">
-						<span v-bind:style="{ color: 'red' }">{{
-							post.category
-						}}</span>
-					</div>
-					<div class="likesBookmarkContainer">
-						<div class="likesContainer">
-							<span class="likesCounter">{{ post.gamification.likes.length }}</span>
-							<img
-								src="../../public/assets/noun-hearts-243868.svg"
-								alt=""
-								v-bind:style="{
-									filter: post.category.secondColor,
-								}"
-							/>
-						</div>
-						<div>
-							<img
-								src="../../public/assets/noun-bookmark-809338.svg"
-								alt=""
-								v-bind:style="{
-									filter: post.category.secondColor,
-								}"
-							/>
-						</div>
-					</div>
-				</div>
-				<div class="middleContainer">
-					<div class="starsContainer">
-						<img
-							src="../../public/assets/noun-star-1187057.svg"
-							alt=""
-							class="star 1"
-							:class="{ faded: post.overallRating < 1 }"
-						/>
-						<img
-							src="../../public/assets/noun-star-1187057.svg"
-							alt=""
-							class="star 2"
-							:class="{ faded: post.overallRating < 2 }"
-						/>
-						<img
-							src="../../public/assets/noun-star-1187057.svg"
-							alt=""
-							class="star 3"
-							:class="{ faded: post.overallRating < 3 }"
-						/>
-						<img
-							src="../../public/assets/noun-star-1187057.svg"
-							alt=""
-							class="star 4"
-							:class="{ faded: post.overallRating < 4 }"
-						/>
-						<img
-							src="../../public/assets/noun-star-1187057.svg"
-							alt=""
-							class="star 5"
-							:class="{ faded: post.overallRating < 5 }"
-						/>
-					</div>
-					<span>{{ post.overallRating }}</span>
-				</div>
-				<div class="bottomContainer">
-					{{ post.small_description }}
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="exploreContainer"> 
+	<div class="bannerContainer">
+    	<span>Fotografia</span>
+    </div>
+</div>
+ 
 </template>
 
 <script>
@@ -131,6 +48,9 @@ export default {
 </script>
 
 <style scoped>
+.exploreContainer{
+	width:100%;
+}
 .bannerContainer {
   width: 100%;
   height: 210px;

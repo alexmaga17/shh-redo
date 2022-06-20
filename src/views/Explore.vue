@@ -81,7 +81,17 @@
 					<div><span>Gostos &#40;ascendente&#41;</span></div>
 				</div>
 				<div class="sortMenuContent" v-show="isOpen" :id="`collapse${_uid}`">
-					<div class="sortItemsContainer"><div><span>Alfabética</span></div><div><span>Alfabética (Descendente)</span></div></div>
+					<div class="sortItemsContainer">
+						<div>
+							<span>Alfabética</span>
+						</div>
+						<div>
+							<span>Alfabética (Descendente)</span>
+						</div>
+						<div>
+							<span>Gostos (Descendente)</span>
+						</div>
+					</div>
 				</div>
 				<PostCards />
 			</div>
@@ -254,5 +264,11 @@ aside h4 {
 
 .sortItemsContainer{
 	display: flex;
+	width:100%;
+	justify-content: space-around;
+}
+
+.sortItemsContainer div:hover{
+	cursor:pointer;
 }
 </style>

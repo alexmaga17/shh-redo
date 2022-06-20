@@ -270,7 +270,7 @@ aside {
 	top: 30%;
 	right: 50px;
 	padding-right: 30px;
-	width: 38%;
+	width: 33%;
 }
 
 aside div:first-child {
@@ -280,7 +280,7 @@ aside div:first-child {
 
 aside div:first-child h1 {
 	font-weight: 800;
-	font-size: 63px;
+	font-size: 53px;
 	margin: 10px 0;
 	padding-left: 20px;
 }
