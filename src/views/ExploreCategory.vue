@@ -243,33 +243,6 @@ export default {
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-.exploreContainer{
-	width:100%;
-}
-.bannerContainer {
-  width: 100%;
-  height: 210px;
-  margin-top: 138px;
-  margin-bottom: 40px;
-  display: flex;
-  align-items: center;
-  background: url(../../public/assets/photoBG.webp);
-  background-size: cover;
-  background-position: center;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px -250px 300px -90px inset,
-    inset 0 0 0 2000px rgba(255, 186, 122, 0.92);
-}
-
-/* mudar barra de categorias e foto */
-
-.bannerContainer span {
-  color: white;
-  font-family: "Gilroy", sans-serif;
-  font-weight: 800;
-  font-size: 100px;
-  padding-left: 50px;
-=======
 .mainContainer {
 	display: flex;
 	flex-direction: column;
@@ -390,7 +363,6 @@ aside h4 {
 
 .sortItemsContainer{
 	display: flex;
->>>>>>> 1cf7496ad29c2a339f91aea8028e48f9781bad44
 }
 
 .postsContainer {
